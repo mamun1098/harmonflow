@@ -1,0 +1,355 @@
+:root {
+  --primary-color: #2FBF7E;
+  --secondary_color: #9593FF;
+  --white: #ffffff;
+  --black: #01040A;
+  --paragaraph: #34363B;
+  --button_color: #4E4BFF;
+  --green_tint: #82D9B2;
+  --bg_color: #EEF2F0;
+  --border_color: #EBEBEB;
+  --linear_gradient: background: linear-gradient(270deg, #01040A 4.82%, #4A5262 54.99%, #01040A 96.16%);
+}
+
+html,
+body {
+  height: 100%;
+  font-family: $bodyFont;
+  font-size: $bfSize;
+  font-weight: $fontWeight;
+  line-height: $blineHeight;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--color2);
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: $bodyFont;
+  letter-spacing: -6%;
+}
+
+h3 {
+  font-weight: 500;
+  font-size: 30px;
+  line-height: 120%;
+  letter-spacing: -4%;
+
+  @media (max-width: 768px) {
+    font-size: 24px;
+  }
+}
+
+p {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 140%;
+}
+
+iframe {
+  border: none;
+}
+
+a,
+b,
+div,
+ul,
+li {
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  -webkit-tap-highlight-color: transparent;
+  -moz-outline-: none;
+}
+
+input,
+input:hover,
+input:focus,
+input:active,
+textarea,
+textarea:hover,
+textarea:focus,
+textarea:active,
+select:focus,
+select:hover {
+  -moz-outline: none;
+  outline: none;
+  box-shadow: none;
+}
+
+button,
+button:hover,
+button:focus,
+button:active {
+  -moz-outline: none;
+  outline: none;
+  box-shadow: none;
+}
+
+img:not([draggable]),
+embed,
+object,
+video {
+  max-width: 100%;
+  height: auto;
+}
+
+a {
+  text-decoration: none;
+  outline: 0;
+}
+
+a:active,
+a:focus,
+a:hover,
+a:visited {
+  text-decoration: none;
+  outline: 0;
+}
+
+:focus {
+  outline: none;
+}
+
+img {
+  border: none;
+  max-width: 100%;
+  height: auto;
+}
+
+button:focus {
+  -moz-outline: none;
+  outline: none;
+  box-shadow: none;
+}
+
+.section-space {
+  padding: 12rem 0;
+}
+
+.section-space-top {
+  padding: 12rem 0 0;
+}
+
+.section-space-bottom {
+  padding: 0 0 12rem 0;
+}
+
+.btn.focus,
+.btn:focus {
+  border: 1px solid transparent;
+}
+
+.form-control:focus,
+.btn.focus,
+.btn:focus {
+  color: #495057;
+  background-color: #fff;
+  outline: 0;
+  box-shadow: none;
+}
+
+.acurate {
+  margin: 0;
+  padding: 0;
+}
+
+.floatleft {
+  float: left;
+}
+
+.floatright {
+  float: right;
+}
+
+.alignleft {
+  float: left;
+  margin-right: 15px;
+  margin-bottom: 24px;
+}
+
+.alignright {
+  float: right;
+  margin-left: 15px;
+  margin-bottom: 24px;
+}
+
+.aligncenter {
+  display: block;
+  margin: 0 auto 24px;
+}
+
+a:focus {
+  outline: 0px solid;
+}
+
+.fix {
+  overflow: hidden;
+}
+
+p {
+  margin: 0 0 24px;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:hover {
+  color: var(--primary-color);
+  text-decoration: none;
+}
+
+a:active,
+a:hover {
+  outline: 0 none;
+  color: var(--hover-color);
+}
+
+ul {
+  list-style: outside none none;
+  margin: 0;
+  padding: 0;
+}
+
+.clear {
+  clear: both;
+}
+
+::-moz-selection {
+  background: var(--primary-color);
+  text-shadow: none;
+}
+
+::selection {
+  background: var(--primary-color);
+  text-shadow: none;
+  color: #ffffff;
+}
+
+.browserupgrade {
+  margin: 24px 0;
+  background: var(--primary-color);
+  color: #ffffff;
+  padding: 24px 0;
+}
+
+.p-0 {
+  padding: 0 !important;
+}
+
+.pb-0 {
+  padding-bottom: 0 !important;
+}
+
+.pt-0 {
+  padding-top: 0 !important;
+}
+
+.m-0 {
+  margin: 0 !important;
+}
+
+.mb-0 {
+  margin-bottom: 0 !important;
+}
+
+.mt-0 {
+  margin-top: 0 !important;
+}
+
+.mt-20 {
+  margin-top: 20px;
+}
+
+.mb-20 {
+  margin-bottom: 20px;
+}
+
+.pb-70 {
+  padding-bottom: 7rem;
+}
+
+.default-row-gap {
+  row-gap: 20px;
+}
+
+// bootstrap modify
+
+
+// primary-btn
+.primary-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  grid-column-gap: 8px;
+  background-color: var(--primary-color);
+  padding: 12px 24px;
+  text-transform: capitalize;
+  transition: all 0.3s ease-in-out;
+  border: 1px solid transparent;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 140%;
+  letter-spacing: -2%;
+  text-align: center;
+  border-radius: 23px;
+
+
+  &.blue-bg {
+    color: var(--white);
+    background: var(--button_color);
+  }
+
+  &:hover {
+    border: 1px solid var(--button_color);
+  }
+
+}
+
+.btn-list {
+  display: flex;
+  align-items: center;
+  flex-flow: row wrap;
+  grid-column-gap: 20px;
+  grid-row-gap: 20px;
+  margin-top: 15px;
+}
+
+
+
+/* =========================
+    BUTTON ANIMATION CSS START
+========================= */
+
+.button-text-wrapper-common {
+  position: relative;
+  overflow: hidden;
+  line-height: 122%;
+
+  .link-text,
+  .link-text-hover {
+    display: inline-block;
+    white-space: nowrap;
+
+    .char {
+      display: inline-block; // required for GSAP yPercent
+    }
+  }
+
+  .link-text-hover {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+
+  &.footer-options {
+    padding: 1px 0;
+  }
+}
+
+/* =========================
+    BUTTON ANIMATION CSS END
+========================= */

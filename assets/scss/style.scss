@@ -1,0 +1,31 @@
+/*
+------------- Table of content ----------------
+
+Template Name: 
+Template URI: 
+Description:  Responsive  HTML5 Template
+Author: Mamun Farazi
+Author URI: 
+Version: 1.0
+
+---------------------- common content ----------
+1.body reset content
+#.header-area
+
+
+
+
+*/
+
+
+// variable
+@import "variable/_variable.scss";
+
+// mixin
+@import "mixin/_mixin.scss";
+
+// body reset content
+@import "reset/_predefine.scss";
+
+// component content
+@import "component/landing-page";
