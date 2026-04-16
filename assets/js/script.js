@@ -2,20 +2,35 @@
 document.addEventListener("DOMContentLoaded", function () {
 
     const menuToggle = document.querySelector('#mobile-menu');
-    const navMenu = document.querySelector('.nav-menu');
+    const navMenu = document.querySelector('.menu-wrapper');
+    const staggerItems = document.querySelectorAll('.nav-menu .nav-link, .nav-actions-mobile');
+
+    const menuTimeline = gsap.timeline({ paused: true });
+
+    menuTimeline.to(navMenu, {
+        clipPath: "inset(0 0 0% 0)",
+        duration: 0.8,
+        ease: "power4.inOut"
+    })
+        .fromTo(staggerItems,
+            { y: 30, autoAlpha: 0 },
+            { y: 0, autoAlpha: 1, duration: 0.6, stagger: 0.1, ease: "power4.out" },
+            "-=0.4" // Start staggering before shutter completes
+        );
 
     menuToggle.addEventListener('click', () => {
-        navMenu.classList.toggle('is-active');
-
-        // Simple rotation for hamburger to X
         const spans = menuToggle.querySelectorAll('span');
         menuToggle.classList.toggle('open');
 
         if (menuToggle.classList.contains('open')) {
+            document.body.style.overflow = 'hidden';
+            menuTimeline.play();
             spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
             spans[1].style.opacity = '0';
             spans[2].style.transform = 'rotate(-45deg) translate(7px, -6px)';
         } else {
+            document.body.style.overflow = '';
+            menuTimeline.reverse();
             spans.forEach(s => s.style.transform = 'none');
             spans[1].style.opacity = '1';
         }
