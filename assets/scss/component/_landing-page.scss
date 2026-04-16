@@ -108,78 +108,133 @@ section {
 /* =========================
     Header Area start
 ========================= */
-// Responsive Breakpoint
-$mobile-width: 992px;
 
-.header {
-    background-color: transparent; // Or var(--bg_color)
-    padding: 20px 0;
+.header-area {
+    background-color: transparent;
+    padding: 12px 0;
     position: fixed;
     width: 100%;
     top: 0;
     z-index: 1000;
+    transition: all 1.5s cubic-bezier(0.16, 1, 0.3, 1);
+    background: transparent;
+
+    &.header-fixed {
+        background: var(--white);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+    }
 
     .navbar {
         display: flex;
         align-items: center;
         justify-content: space-between;
-    }
-}
 
-.nav-menu {
-    display: flex;
-    gap: 30px;
-    list-style: none;
-
-    .nav-link {
-        text-decoration: none;
-        color: var(--black);
-        font-weight: 500;
-        transition: color 0.3s ease;
-
-        &:hover,
-        &.active {
-            color: var(--primary-color);
+        .logo {
+            img {
+                max-width: 240px;
+            }
         }
-    }
 
-    @media (max-width: $mobile-width) {
-        display: none; // Hidden by default on mobile, toggled via JS
-        position: absolute;
-        top: 100%;
-        left: 0;
-        width: 100%;
-        background: var(--white);
-        flex-direction: column;
-        padding: 40px;
-        text-align: center;
-        box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
 
-        &.is-active {
+        .nav-menu {
             display: flex;
+            gap: 40px;
+            list-style: none;
+
+            .nav-link {
+                text-decoration: none;
+                color: var(--paragaraph);
+                transition: color 0.3s ease;
+                font-weight: 500;
+                font-size: 16px;
+                line-height: 140%;
+                padding: 0;
+
+
+                &:hover,
+                &.active {
+                    color: var(--black);
+                }
+            }
+
+            @media (max-width: 992px) {
+                display: none; // Hidden by default on mobile, toggled via JS
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background: var(--white);
+                flex-direction: column;
+                padding: 40px;
+                text-align: center;
+                box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+
+                &.is-active {
+                    display: flex;
+                }
+            }
+        }
+    }
+
+    .nav-actions {
+        display: flex;
+        align-items: center;
+        gap: 36px;
+
+
+    }
+
+    .lang-selector-dropdown {
+        .dropdown-toggle {
+            border: none;
+            outline: none;
+            background: transparent;
+            font-weight: 400;
+            font-size: 16px;
+            line-height: 140%;
+            color: var(--black);
+
+
+            img {
+                width: 24px;
+                height: 24px;
+                object-fit: cover;
+            }
+
+            &::after {
+                content: "";
+                display: inline-block;
+                width: 12px;
+                height: 12px;
+                background-color: currentColor;
+                // This is a standard Chevron Down SVG path
+                mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'></polyline></svg>") no-repeat center;
+                -webkit-mask: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='black' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'><polyline points='6 9 12 15 18 9'></polyline></svg>") no-repeat center;
+                border: none;
+                vertical-align: unset;
+                transition: all 0.3s ease-in-out;
+            }
+        }
+
+        .dropdown-menu {
+            border: 1px solid var(--border_color);
+            .dropdown-item {
+                display: flex;
+                align-items: center;
+                column-gap: 8px;
+                font-weight: 400;
+                font-size: 16px;
+                line-height: 140%;
+                color: var(--black);
+            }
+        }
+
+        .dropdown-menu[data-bs-popper] {
+            top: 40px;
         }
     }
 }
 
-.nav-actions {
-    display: flex;
-    align-items: center;
-    gap: 20px;
-
-    .btn-demo {
-        background-color: var(--black);
-        color: var(--white);
-        padding: 12px 24px;
-        border-radius: 50px;
-        text-decoration: none;
-        font-weight: 600;
-        transition: transform 0.2s ease;
-
-        &:hover {
-            transform: scale(1.05);
-        }
-    }
-}
 
 .menu-toggle {
     display: none;
@@ -196,7 +251,7 @@ $mobile-width: 992px;
         transition: 0.3s;
     }
 
-    @media (max-width: $mobile-width) {
+    @media (max-width: 992px) {
         display: flex;
     }
 }
@@ -393,10 +448,11 @@ footer.footer-area {
         position: relative;
 
         @media (max-width: 1024px) {
-            padding: 100px 0 80px;            
+            padding: 100px 0 80px;
         }
+
         @media (max-width: 768px) {
-            padding: 60px 0 60px;            
+            padding: 60px 0 60px;
         }
 
         .section-title {

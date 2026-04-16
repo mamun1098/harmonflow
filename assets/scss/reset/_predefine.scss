@@ -303,10 +303,15 @@ ul {
     background: var(--button_color);
   }
 
-  &:hover {
-    border: 1px solid var(--button_color);
+  &.black-bg {
+    color: var(--white);
+    background: var(--black);
+
   }
 
+  // &:hover {
+  //   border: 1px solid var(--button_color);
+  // }
 }
 
 .btn-list {

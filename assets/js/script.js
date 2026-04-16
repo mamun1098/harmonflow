@@ -1,55 +1,55 @@
 
 document.addEventListener("DOMContentLoaded", function () {
 
-    // const menuToggle = document.querySelector('#mobile-menu');
-    // const navMenu = document.querySelector('.nav-menu');
+    const menuToggle = document.querySelector('#mobile-menu');
+    const navMenu = document.querySelector('.nav-menu');
 
-    // menuToggle.addEventListener('click', () => {
-    //     navMenu.classList.toggle('is-active');
+    menuToggle.addEventListener('click', () => {
+        navMenu.classList.toggle('is-active');
 
-    //     // Simple rotation for hamburger to X
-    //     const spans = menuToggle.querySelectorAll('span');
-    //     menuToggle.classList.toggle('open');
+        // Simple rotation for hamburger to X
+        const spans = menuToggle.querySelectorAll('span');
+        menuToggle.classList.toggle('open');
 
-    //     if (menuToggle.classList.contains('open')) {
-    //         spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
-    //         spans[1].style.opacity = '0';
-    //         spans[2].style.transform = 'rotate(-45deg) translate(7px, -6px)';
-    //     } else {
-    //         spans.forEach(s => s.style.transform = 'none');
-    //         spans[1].style.opacity = '1';
-    //     }
-    // });
+        if (menuToggle.classList.contains('open')) {
+            spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+            spans[1].style.opacity = '0';
+            spans[2].style.transform = 'rotate(-45deg) translate(7px, -6px)';
+        } else {
+            spans.forEach(s => s.style.transform = 'none');
+            spans[1].style.opacity = '1';
+        }
+    });
 
     /* STICKY HEADER */
-    // let lastScrollTop = 0;
-    // const header = document.querySelector(".lp-header");
+    let lastScrollTop = 0;
+    const header = document.querySelector(".header-area");
 
-    // window.addEventListener("scroll", () => {
-    //     let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-    //     let width = window.innerWidth;
+    window.addEventListener("scroll", () => {
+        let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+        let width = window.innerWidth;
 
-    //     if (width > 768) {
-    //         if (scrollTop > lastScrollTop) {
-    //             header.classList.add("is-sticky");
-    //         } else if (scrollTop <= 48) {
-    //             header.classList.remove("is-sticky");
-    //         }
-    //     } else {
-    //         if (scrollTop > lastScrollTop) {
-    //             header.style.top = "-92px";
-    //             header.classList.add("is-sticky");
-    //         } else {
-    //             header.style.top = "0";
-    //             if (scrollTop <= 48) {
-    //                 header.style.top = "0px";
-    //                 header.classList.remove("is-sticky");
-    //             }
-    //         }
-    //     }
+        if (width > 768) {
+            if (scrollTop > lastScrollTop) {
+                header.classList.add("header-fixed");
+            } else if (scrollTop <= 48) {
+                header.classList.remove("header-fixed");
+            }
+        } else {
+            if (scrollTop > lastScrollTop) {
+                header.style.top = "-92px";
+                header.classList.add("header-fixed");
+            } else {
+                header.style.top = "0";
+                if (scrollTop <= 48) {
+                    header.style.top = "0px";
+                    header.classList.remove("header-fixed");
+                }
+            }
+        }
 
-    //     lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
-    // }, { passive: true });
+        lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
+    }, { passive: true });
     /* STICKY HEADER END */
 
     /* START CAMPAING CALENDER IMAGE ANIMATION */
