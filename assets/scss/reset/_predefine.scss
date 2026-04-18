@@ -1,7 +1,7 @@
 :root {
   --primary-color: #2FBF7E;
   --secondary_color: #9593FF;
-  --white: #ffffff;
+  --white: #FFFDFD;
   --black: #01040A;
   --paragaraph: #34363B;
   --button_color: #4E4BFF;
@@ -357,4 +357,23 @@ ul {
 
 /* =========================
     BUTTON ANIMATION CSS END
+========================= */
+
+/* =========================
+    CUSTOM GAP BETWEEN 2 COLLUMN START
+========================= */
+@media (min-width: 1200px) {
+  .row>* {
+    padding-right: calc(var(--bs-gutter-x) * .3);
+    padding-left: calc(var(--bs-gutter-x) * .3);
+  }
+  
+  .container {
+    padding-right: var(--bs-gutter-x, .25rem);
+    padding-left: var(--bs-gutter-x, .25rem);
+  }
+}
+
+/* =========================
+    CUSTOM GAP BETWEEN 2 COLLUMN END
 ========================= */

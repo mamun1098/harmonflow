@@ -94,81 +94,105 @@ document.addEventListener("DOMContentLoaded", function () {
 
     /* BUTTON SPLIT LETTERS ANIMATION START */
 
-    // 1. Reusable text-split function
-    function splitTextToChars(element) {
-        if (!element) return [];
-        // Use textContent instead of innerText to get raw HTML text, 
-        // avoiding CSS text-transform forcing it to uppercase!
-        const text = element.textContent.trim();
-        element.innerHTML = "";
+        // 1. Reusable text-split function
+        function splitTextToChars(element) {
+            if (!element) return [];
+            // Use textContent instead of innerText to get raw HTML text, 
+            // avoiding CSS text-transform forcing it to uppercase!
+            const text = element.textContent.trim();
+            element.innerHTML = "";
 
-        let chars = [];
-        for (let i = 0; i < text.length; i++) {
-            let span = document.createElement("span");
-            span.className = "char";
-            span.style.willChange = "transform, opacity";
-            span.style.display = "inline-block";
-            // Prevent text-transform: capitalize on parent from making EVERY letter uppercase!
-            span.style.textTransform = "none";
+            let chars = [];
+            for (let i = 0; i < text.length; i++) {
+                let span = document.createElement("span");
+                span.className = "char";
+                span.style.willChange = "transform, opacity";
+                span.style.display = "inline-block";
+                // Prevent text-transform: capitalize on parent from making EVERY letter uppercase!
+                span.style.textTransform = "none";
 
-            // Preserve layout for spaces
-            if (text[i] === " ") {
-                span.innerHTML = "&nbsp;";
-                span.style.width = "4px"; // typical space width
-            } else {
-                span.innerText = text[i];
+                // Preserve layout for spaces
+                if (text[i] === " ") {
+                    span.innerHTML = "&nbsp;";
+                    span.style.width = "4px"; // typical space width
+                } else {
+                    span.innerText = text[i];
+                }
+
+                element.appendChild(span);
+                chars.push(span);
             }
-
-            element.appendChild(span);
-            chars.push(span);
+            return chars;
         }
-        return chars;
-    }
-    // 2. Animate all [letters-hover] buttons
-    document.querySelectorAll("[letters-hover]").forEach((button) => {
+        // 2. Animate all [letters-hover] buttons
+        document.querySelectorAll("[letters-hover]").forEach((button) => {
 
-        const normalText = button.querySelector(".link-text");
-        const hoverText = button.querySelector(".link-text-hover");
+            const normalText = button.querySelector(".link-text");
+            const hoverText = button.querySelector(".link-text-hover");
 
-        // Split text only when JS loads, fulfilling the requirement!
-        const normalChars = splitTextToChars(normalText);
-        const hoverChars = splitTextToChars(hoverText);
+            // Split text only when JS loads, fulfilling the requirement!
+            const normalChars = splitTextToChars(normalText);
+            const hoverChars = splitTextToChars(hoverText);
 
-        // Initial state 
-        gsap.set(hoverChars, { yPercent: 100, opacity: 0 });
-        gsap.set(normalChars, { yPercent: 0, opacity: 1 });
+            // Initial state 
+            gsap.set(hoverChars, { yPercent: 100, opacity: 0 });
+            gsap.set(normalChars, { yPercent: 0, opacity: 1 });
 
-        const tl = gsap.timeline({ paused: true });
+            const tl = gsap.timeline({ paused: true });
 
-        // Wave out default text
-        tl.to(normalChars, {
-            yPercent: -100,
-            opacity: 0,
-            duration: 0.5,
-            ease: "power3.inOut",
-            stagger: {
-                each: 0.02,
-                from: "start"
-            }
-        }, 0);
+            // Wave out default text
+            tl.to(normalChars, {
+                yPercent: -100,
+                opacity: 0,
+                duration: 0.5,
+                ease: "power3.inOut",
+                stagger: {
+                    each: 0.02,
+                    from: "start"
+                }
+            }, 0);
 
-        // Wave in hover text
-        tl.to(hoverChars, {
-            yPercent: 0,
-            opacity: 1,
-            duration: 0.5,
-            ease: "power3.inOut",
-            stagger: {
-                each: 0.02,
-                from: "start"
-            }
-        }, 0); // start at same time as normal chars
+            // Wave in hover text
+            tl.to(hoverChars, {
+                yPercent: 0,
+                opacity: 1,
+                duration: 0.5,
+                ease: "power3.inOut",
+                stagger: {
+                    each: 0.02,
+                    from: "start"
+                }
+            }, 0); // start at same time as normal chars
 
-        // Play and reverse nicely
-        button.addEventListener("mouseenter", () => tl.play());
-        button.addEventListener("mouseleave", () => tl.reverse());
+            // Play and reverse nicely
+            button.addEventListener("mouseenter", () => tl.play());
+            button.addEventListener("mouseleave", () => tl.reverse());
 
-    });
+        });
 
     /* BUTTON SPLIT LETTERS ANIMATION  END */
+
+    /* REUSABLE FADE UP ANIMATION START */
+    function animateFadeUp(selector) {
+        gsap.utils.toArray(selector).forEach((el) => {
+            gsap.fromTo(el,
+                { y: 50, opacity: 0 },
+                {
+                    y: 0,
+                    opacity: 1,
+                    duration: 0.8,
+                    ease: "power2.out",
+                    scrollTrigger: {
+                        trigger: el,
+                        start: "top 80%",
+                        toggleActions: "play none none none"
+                    }
+                }
+            );
+        });
+    }
+
+    // Apply to accordion items
+    animateFadeUp('.accordion-item');
+    /* REUSABLE FADE UP ANIMATION END */
 })  
