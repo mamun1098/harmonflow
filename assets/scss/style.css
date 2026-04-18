@@ -1591,6 +1591,7 @@ section.pricing-plan .ellipse {
 ========================= */
 .testimonials-area {
   background: var(--black);
+  position: relative;
 }
 .testimonials-area .swiper-wrapper {
   width: calc(100% - 224px);
@@ -1793,9 +1794,97 @@ section.pricing-plan .ellipse {
     border-left: 1px solid #202125;
   }
 }
+.testimonials-area .bg-img {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+}
+.testimonials-area .bg-img img {
+  object-fit: cover;
+  width: 100%;
+  height: 100%;
+}
 
 /* =========================
     TESTIMONIALS Area End
+========================= */
+/* =========================
+    PLATFORM Area START
+========================= */
+.platform-area {
+  position: relative;
+  overflow: hidden;
+  background: var(--bg_color);
+}
+.platform-area .container {
+  position: relative;
+  z-index: 11;
+}
+.platform-area .platform-card {
+  border-radius: 24px;
+  padding: 40px;
+  background: var(--white);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  row-gap: 20px;
+}
+@media (max-width: 1200px) {
+  .platform-area .platform-card {
+    padding: 20px;
+  }
+}
+.platform-area .platform-card.padding-8 {
+  padding: 13px;
+}
+.platform-area .platform-card.padding-8 h3 {
+  padding: 0px 40px 40px 40px;
+}
+@media (max-width: 1200px) {
+  .platform-area .platform-card.padding-8 h3 {
+    padding: 0px 20px 20px 20px;
+  }
+}
+.platform-area .platform-card .image {
+  text-align: center;
+}
+.platform-area .platform-card .image img {
+  max-height: 330px;
+  width: 100%;
+}
+.platform-area .platform-card h3 {
+  font-weight: 500;
+  font-size: 30px;
+  line-height: 120%;
+  letter-spacing: -4%;
+  color: var(--black);
+}
+@media (max-width: 1200px) {
+  .platform-area .platform-card h3 {
+    font-size: 22px;
+  }
+}
+.platform-area .platform-card h3 span {
+  display: block;
+  color: var(--green_tint);
+}
+.platform-area .ellipse {
+  position: absolute;
+  width: 2638px;
+  height: 925px;
+  top: -255px;
+  left: -410px;
+  opacity: 0.56;
+  background: linear-gradient(2.46deg, #EEFFF7 3.83%, #E9FFF5 57.8%, #14C878 108.12%);
+  filter: blur(114px);
+  z-index: 1;
+}
+
+/* =========================
+    PLATFORM Area End
 ========================= */
 #smooth-content {
   will-change: transform;
