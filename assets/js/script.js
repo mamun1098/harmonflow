@@ -69,7 +69,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // Hide/Show logic for both mobile and desktop (optional, keeping current mobile preference)
         if (width <= 991) {
             if (scrollTop > lastScrollTop && scrollTop > 100) {
-                header.style.top = "-92px"; // Hide header when scrolling down
+                header.style.top = "-110px"; // Hide header when scrolling down
             } else {
                 header.style.top = "0"; // Show header when scrolling up
             }
@@ -250,7 +250,7 @@ document.addEventListener("DOMContentLoaded", function () {
     }
 
     // Apply to accordion items
-    animateFadeUp('.accordion-item');
+    // animateFadeUp('.accordion-item');
     /* REUSABLE FADE UP ANIMATION END */
 
     /* TESTIMONI SWIPER START */
@@ -390,4 +390,67 @@ document.addEventListener("DOMContentLoaded", function () {
 
     /* END HOW IT WORK CARD ANIMATION */
 
-})
+
+    /* START SMOOTH SCROLL & ACTIVE NAV */
+    gsap.registerPlugin(ScrollToPlugin, ScrollTrigger);
+
+    const navLinks = document.querySelectorAll(".nav-menu .nav-link");
+
+    // 1. Smooth scroll for navigation links
+    navLinks.forEach(link => {
+        link.addEventListener("click", (e) => {
+            const id = link.getAttribute("href");
+            if (id && id.startsWith("#")) {
+                const target = document.querySelector(id);
+                if (target) {
+                    e.preventDefault();
+
+                    // Close mobile menu if it's open
+                    if (menuToggle && menuToggle.classList.contains('open')) {
+                        menuToggle.click();
+                    }
+
+                    // Scrolled position calculation
+                    smoother.scrollTo(target, {
+                        duration: 1.2,
+                        offsetY: 80 // Adjust based on sticky header height
+                    });
+                }
+            }
+        });
+    });
+
+    // 2. ScrollSpy: Update active class on scroll
+    const updateActiveNav = () => {
+        navLinks.forEach(link => {
+            const id = link.getAttribute("href");
+            if (id && id.startsWith("#")) {
+                const section = document.querySelector(id);
+                if (section) {
+                    ScrollTrigger.create({
+                        trigger: section,
+                        start: "top 40%", // Trigger when section top hits 40% of viewport
+                        end: "bottom 40%",
+                        onToggle: (self) => {
+                            if (self.isActive) {
+                                navLinks.forEach(l => l.classList.remove("active"));
+                                link.classList.add("active");
+                            }
+                        }
+                    });
+                }
+            }
+        });
+    };
+
+    updateActiveNav();
+
+    // Refresh ScrollTrigger to account for dynamic heights/animations
+    window.addEventListener("load", () => {
+        ScrollTrigger.refresh();
+    });
+
+    /* END SMOOTH SCROLL & ACTIVE NAV */
+
+
+});

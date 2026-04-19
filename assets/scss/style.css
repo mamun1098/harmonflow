@@ -1754,6 +1754,7 @@ section.pricing-plan .pricing-card .card-body-content {
 }
 section.pricing-plan .pricing-card .feature-list {
   list-style: none;
+  padding-left: 25px;
 }
 section.pricing-plan .pricing-card .feature-list li {
   margin-bottom: 20px;
@@ -1771,6 +1772,17 @@ section.pricing-plan .pricing-card .feature-list li img {
   height: 15px;
   object-fit: contain;
   margin-top: 5px;
+}
+section.pricing-plan .pricing-card .feature-list li::before {
+  content: "";
+  position: absolute;
+  left: -27px;
+  top: 3px;
+  width: 15px;
+  height: 15px;
+  background-image: url("../../../assets/images/check.png");
+  background-repeat: no-repeat;
+  background-size: contain;
 }
 section.pricing-plan .pricing-card.horizontal {
   flex-direction: row;
@@ -1875,6 +1887,10 @@ section.pricing-plan .ellipse {
   background: var(--black);
   position: relative;
 }
+.testimonials-area .container {
+  position: relative;
+  z-index: 11;
+}
 .testimonials-area .swiper-wrapper {
   width: calc(100% - 224px);
   overflow: hidden;
@@ -1898,6 +1914,7 @@ section.pricing-plan .ellipse {
   display: flex;
   align-items: center;
   justify-content: center;
+  height: auto;
 }
 .testimonials-area .testimonicard {
   display: flex;
@@ -1908,6 +1925,18 @@ section.pricing-plan .ellipse {
   border-right: none;
   background: #131417;
   width: calc(100% - 224px);
+  position: relative;
+  overflow: hidden;
+}
+.testimonials-area .testimonicard::before {
+  content: "";
+  position: absolute;
+  bottom: -195px;
+  width: 292px;
+  height: 195px;
+  background: #4E4BFF;
+  filter: blur(184px);
+  left: 50%;
 }
 @media (max-width: 1400px) {
   .testimonials-area .testimonicard {
@@ -1925,6 +1954,7 @@ section.pricing-plan .ellipse {
     width: 100%;
     border-right: 1px solid #202125;
     border-bottom: none;
+    height: 100%;
   }
 }
 @media (max-width: 768px) {
@@ -1941,8 +1971,22 @@ section.pricing-plan .ellipse {
 }
 .testimonials-area .testimonicard .image img {
   width: 100%;
-  height: 100%;
   object-fit: cover;
+  height: 470px;
+  max-width: 470px;
+}
+@media (max-width: 1200px) {
+  .testimonials-area .testimonicard .image img {
+    min-height: 300px;
+    height: 100%;
+  }
+}
+@media (max-width: 991px) {
+  .testimonials-area .testimonicard .image img {
+    width: 150px;
+    height: 150px;
+    min-height: unset;
+  }
 }
 @media (max-width: 1400px) {
   .testimonials-area .testimonicard .image {
@@ -1959,8 +2003,8 @@ section.pricing-plan .ellipse {
     width: 150px;
   }
   .testimonials-area .testimonicard .image img {
-    width: 150px;
-    height: 150px;
+    width: 100px;
+    height: 100px;
     border-radius: 100%;
   }
 }
@@ -1971,6 +2015,7 @@ section.pricing-plan .ellipse {
   justify-content: space-between;
   max-width: 535px;
   height: stretch;
+  width: 48%;
 }
 @media (max-width: 1200px) {
   .testimonials-area .testimonicard .content {
