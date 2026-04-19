@@ -309,6 +309,12 @@ ul {
 
   }
 
+  &.blue-border {
+    border: 1px solid var(--button_color);
+    background: transparent;
+    color: var(--black);
+  }
+
   // &:hover {
   //   border: 1px solid var(--button_color);
   // }
@@ -317,6 +323,7 @@ ul {
 .btn-list {
   display: flex;
   align-items: center;
+  justify-content: center;
   flex-flow: row wrap;
   grid-column-gap: 20px;
   grid-row-gap: 20px;
@@ -367,7 +374,7 @@ ul {
     padding-right: calc(var(--bs-gutter-x) * .3);
     padding-left: calc(var(--bs-gutter-x) * .3);
   }
-  
+
   .container {
     padding-right: var(--bs-gutter-x, .25rem);
     padding-left: var(--bs-gutter-x, .25rem);

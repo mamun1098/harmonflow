@@ -67,13 +67,54 @@ document.addEventListener("DOMContentLoaded", function () {
     }, { passive: true });
     /* STICKY HEADER END */
 
-    /* START CAMPAING CALENDER IMAGE ANIMATION */
+    /* HERO SLIDER START */
+    gsap.registerPlugin(Draggable);
 
-    gsap.registerPlugin(ScrollTrigger);
-    gsap.registerPlugin(ScrollToPlugin);
+    let xPos = 0;
+    let ring = document.querySelector("#ring");
+    let dragger = document.querySelector("#dragger");
+    let items = document.querySelectorAll(".slider-img");
+
+    if (!ring || !dragger || items.length === 0) return;
+
+    // Calculate angle based on actual number of images
+    let count = items.length;
+    let angle = 360 / count;
+
+    gsap.timeline()
+        .set(dragger, { opacity: 0 })
+        .set(ring, { rotationY: 180 })
+        .set('.slider-img', {
+            rotateY: (i) => i * -angle,
+            transformOrigin: `50% 50% 550px`, // You can also make this dynamic if needed
+            z: -550,
+            backfaceVisibility: 'hidden'
+        })
+
+    Draggable.create(dragger, {
+        onDragStart: (e) => {
+            if (e.touches) e.clientX = e.touches[0].clientX;
+            xPos = Math.round(e.clientX);
+        },
+        onDrag: (e) => {
+            if (e.touches) e.clientX = e.touches[0].clientX;
+            // Adjust rotation sensitivity based on item count if needed
+            gsap.to(ring, {
+                rotationY: '-=' + ((Math.round(e.clientX) - xPos) % 360)
+            });
+            xPos = Math.round(e.clientX);
+        },
+        onDragEnd: () => {
+            gsap.set(dragger, { x: 0, y: 0 })
+        }
+    })
+    /* HERO SLIDER END */
 
 
     /* SMOOTH SCROLLER START (GSAP) START */
+    gsap.registerPlugin(ScrollTrigger);
+    gsap.registerPlugin(ScrollToPlugin);
+
     // --- GSAP & ScrollSmoother ---
     gsap.registerPlugin(ScrollSmoother);
 
@@ -94,81 +135,81 @@ document.addEventListener("DOMContentLoaded", function () {
 
     /* BUTTON SPLIT LETTERS ANIMATION START */
 
-        // 1. Reusable text-split function
-        function splitTextToChars(element) {
-            if (!element) return [];
-            // Use textContent instead of innerText to get raw HTML text, 
-            // avoiding CSS text-transform forcing it to uppercase!
-            const text = element.textContent.trim();
-            element.innerHTML = "";
+    // 1. Reusable text-split function
+    function splitTextToChars(element) {
+        if (!element) return [];
+        // Use textContent instead of innerText to get raw HTML text, 
+        // avoiding CSS text-transform forcing it to uppercase!
+        const text = element.textContent.trim();
+        element.innerHTML = "";
 
-            let chars = [];
-            for (let i = 0; i < text.length; i++) {
-                let span = document.createElement("span");
-                span.className = "char";
-                span.style.willChange = "transform, opacity";
-                span.style.display = "inline-block";
-                // Prevent text-transform: capitalize on parent from making EVERY letter uppercase!
-                span.style.textTransform = "none";
+        let chars = [];
+        for (let i = 0; i < text.length; i++) {
+            let span = document.createElement("span");
+            span.className = "char";
+            span.style.willChange = "transform, opacity";
+            span.style.display = "inline-block";
+            // Prevent text-transform: capitalize on parent from making EVERY letter uppercase!
+            span.style.textTransform = "none";
 
-                // Preserve layout for spaces
-                if (text[i] === " ") {
-                    span.innerHTML = "&nbsp;";
-                    span.style.width = "4px"; // typical space width
-                } else {
-                    span.innerText = text[i];
-                }
-
-                element.appendChild(span);
-                chars.push(span);
+            // Preserve layout for spaces
+            if (text[i] === " ") {
+                span.innerHTML = "&nbsp;";
+                span.style.width = "4px"; // typical space width
+            } else {
+                span.innerText = text[i];
             }
-            return chars;
+
+            element.appendChild(span);
+            chars.push(span);
         }
-        // 2. Animate all [letters-hover] buttons
-        document.querySelectorAll("[letters-hover]").forEach((button) => {
+        return chars;
+    }
+    // 2. Animate all [letters-hover] buttons
+    document.querySelectorAll("[letters-hover]").forEach((button) => {
 
-            const normalText = button.querySelector(".link-text");
-            const hoverText = button.querySelector(".link-text-hover");
+        const normalText = button.querySelector(".link-text");
+        const hoverText = button.querySelector(".link-text-hover");
 
-            // Split text only when JS loads, fulfilling the requirement!
-            const normalChars = splitTextToChars(normalText);
-            const hoverChars = splitTextToChars(hoverText);
+        // Split text only when JS loads, fulfilling the requirement!
+        const normalChars = splitTextToChars(normalText);
+        const hoverChars = splitTextToChars(hoverText);
 
-            // Initial state 
-            gsap.set(hoverChars, { yPercent: 100, opacity: 0 });
-            gsap.set(normalChars, { yPercent: 0, opacity: 1 });
+        // Initial state 
+        gsap.set(hoverChars, { yPercent: 100, opacity: 0 });
+        gsap.set(normalChars, { yPercent: 0, opacity: 1 });
 
-            const tl = gsap.timeline({ paused: true });
+        const tl = gsap.timeline({ paused: true });
 
-            // Wave out default text
-            tl.to(normalChars, {
-                yPercent: -100,
-                opacity: 0,
-                duration: 0.5,
-                ease: "power3.inOut",
-                stagger: {
-                    each: 0.02,
-                    from: "start"
-                }
-            }, 0);
+        // Wave out default text
+        tl.to(normalChars, {
+            yPercent: -100,
+            opacity: 0,
+            duration: 0.5,
+            ease: "power3.inOut",
+            stagger: {
+                each: 0.02,
+                from: "start"
+            }
+        }, 0);
 
-            // Wave in hover text
-            tl.to(hoverChars, {
-                yPercent: 0,
-                opacity: 1,
-                duration: 0.5,
-                ease: "power3.inOut",
-                stagger: {
-                    each: 0.02,
-                    from: "start"
-                }
-            }, 0); // start at same time as normal chars
+        // Wave in hover text
+        tl.to(hoverChars, {
+            yPercent: 0,
+            opacity: 1,
+            duration: 0.5,
+            ease: "power3.inOut",
+            stagger: {
+                each: 0.02,
+                from: "start"
+            }
+        }, 0); // start at same time as normal chars
 
-            // Play and reverse nicely
-            button.addEventListener("mouseenter", () => tl.play());
-            button.addEventListener("mouseleave", () => tl.reverse());
+        // Play and reverse nicely
+        button.addEventListener("mouseenter", () => tl.play());
+        button.addEventListener("mouseleave", () => tl.reverse());
 
-        });
+    });
 
     /* BUTTON SPLIT LETTERS ANIMATION  END */
 
@@ -195,4 +236,29 @@ document.addEventListener("DOMContentLoaded", function () {
     // Apply to accordion items
     animateFadeUp('.accordion-item');
     /* REUSABLE FADE UP ANIMATION END */
+
+    /* TESTIMONI SWIPER START */
+    const swiper = new Swiper(".testimoni-swiper", {
+        grabCursor: true,
+        navigation: {
+            nextEl: ".swiper-button-next",
+            prevEl: ".swiper-button-prev",
+        },
+        speed: 800,
+        loop: false,
+        effect: "creative",
+        creativeEffect: {
+
+            prev: {
+                shadow: true,
+                translate: ["-120%", 0, -500],
+            },
+            next: {
+                translate: ["100%", 0, 0],
+            },
+        },
+        transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
+    });
+    /* TESTIMONI SWIPER END */
+
 })  

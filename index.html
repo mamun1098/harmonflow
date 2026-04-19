@@ -19,14 +19,6 @@
     <link href="assets/scss/style.css" rel="stylesheet">
 
     <style>
-        .swiper-slide {
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 22px;
-            font-weight: bold;
-            color: #fff;
-        }
     </style>
 
 
@@ -39,7 +31,7 @@
         <div class="container">
             <nav class="navbar">
                 <a href="#" class="logo">
-                    <img src="assets/images/logo.png" alt="HarmonFlow">
+                    <img src="assets/images/logo-dark.png" alt="HarmonFlow">
                 </a>
 
                 <div class="menu-wrapper">
@@ -254,6 +246,90 @@
         <div id="smooth-content">
 
             <main>
+                <!-- HERO AREA START -->
+                <section class="hero-area">
+                    <div class="ellipse"></div>
+                    <div class="container">
+                        <div class="row justify-content-center">
+                            <div class="col-lg-7">
+                                <div class="section-title white-bg hero-contnet">
+                                    <div class="title-tag">
+                                        <div class="arrow-with-image">
+                                            <div class="arrow"><img src="assets/images/arrow.svg" alt="Arrow Icon">
+                                            </div>
+                                            <div class="image"><img src="assets/images/testimoni/t-01.png" alt=""></div>
+                                        </div>
+                                        <span class="text">Welcome To Site</span>
+                                    </div>
+                                    <h1 class="hero-title">Regroup Your Community Power <span class="green">Your
+                                            Progress.</span></h1>
+                                    <p>
+                                        The all-in-one platform for transparent association management. From empowering
+                                        alumni networks to automating tontines, we provide the tools to manage
+                                        memberships, secure global payments, and drive collective impact.
+                                    </p>
+                                    <div class="btn-list">
+                                        <a href="#" class="primary-btn blue-bg" letters-hover>
+                                            <div class="button-text-wrapper-common">
+                                                <div class="link-text" text-split>
+                                                    Request a Demo
+                                                </div>
+
+                                                <div class="link-text-hover" text-split>
+                                                    Request a Demo
+                                                </div>
+                                            </div>
+                                        </a>
+                                        <a href="#" class="primary-btn blue-border" letters-hover>
+                                            <div class="button-text-wrapper-common">
+                                                <div class="link-text" text-split>
+                                                    Features
+                                                </div>
+
+                                                <div class="link-text-hover" text-split>
+                                                    Features
+                                                </div>
+                                            </div>
+                                        </a>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="hero-slider">
+                        <div id="ring">
+
+                            <div class="slider-img" style="background-image: url('assets/images/hero-slider/01.png')">
+                            </div>
+                            <div class="slider-img" style="background-image: url('assets/images/hero-slider/02.png')">
+                            </div>
+                            <div class="slider-img" style="background-image: url('assets/images/hero-slider/03.png')">
+                            </div>
+                            <div class="slider-img" style="background-image: url('assets/images/hero-slider/04.png')">
+                            </div>
+                            <div class="slider-img" style="background-image: url('assets/images/hero-slider/05.png')">
+                            </div>
+                            <div class="slider-img" style="background-image: url('assets/images/hero-slider/01.png')">
+                            </div>
+                            <div class="slider-img" style="background-image: url('assets/images/hero-slider/06.png')">
+                            </div>
+                            <div class="slider-img" style="background-image: url('assets/images/hero-slider/02.png')">
+                            </div>
+                            <div class="slider-img" style="background-image: url('assets/images/hero-slider/04.png')">
+                            </div>
+                            <div class="slider-img" style="background-image: url('assets/images/hero-slider/03.png')">
+                            </div>
+                            <div class="slider-img" style="background-image: url('assets/images/hero-slider/05.png')">
+                            </div>
+
+                        </div>
+                        <div id="dragger"></div>
+                    </div>
+                    <div class="ellipse2"></div>
+                </section>
+                <!-- HERO AREA END -->
+
+
                 <!-- HOW IT WORK SECTION START -->
                 <section class="how-it-work lp-section-padding">
                     <div class="container">
@@ -1187,6 +1263,7 @@
     <script src="https://assets.codepen.io/16327/ScrollSmoother.min.js"></script>
 
     <script src="https://unpkg.com/split-type"></script>
+    <script src="https://unpkg.com/gsap@3/dist/Draggable.min.js"></script>
 
 
     <!-- Swiper JS -->
@@ -1194,29 +1271,7 @@
 
     <script src="assets/js/script.js"></script>
 
-    <script>
-        const swiper = new Swiper(".testimoni-swiper", {
-            grabCursor: true,
-            navigation: {
-                nextEl: ".swiper-button-next",
-                prevEl: ".swiper-button-prev",
-            },
-            speed: 800,
-            loop: false,
-            effect: "creative",
-            creativeEffect: {
 
-                prev: {
-                    shadow: true,
-                    translate: ["-120%", 0, -500],
-                },
-                next: {
-                    translate: ["100%", 0, 0],
-                },
-            },
-            transitionTimingFunction: 'cubic-bezier(0.4, 0, 0.2, 1)',
-        });
-    </script>
 
 </body>
 
