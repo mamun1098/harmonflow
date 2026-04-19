@@ -3,69 +3,85 @@ document.addEventListener("DOMContentLoaded", function () {
 
     const menuToggle = document.querySelector('#mobile-menu');
     const navMenu = document.querySelector('.menu-wrapper');
-    const staggerItems = document.querySelectorAll('.nav-menu .nav-link, .nav-actions-mobile');
 
-    const menuTimeline = gsap.timeline({ paused: true });
+    let mm = gsap.matchMedia();
 
-    menuTimeline.to(navMenu, {
-        clipPath: "inset(0 0 0% 0)",
-        duration: 0.8,
-        ease: "power4.inOut"
-    })
-        .fromTo(staggerItems,
-            { y: 30, autoAlpha: 0 },
-            { y: 0, autoAlpha: 1, duration: 0.6, stagger: 0.1, ease: "power4.out" },
-            "-=0.4" // Start staggering before shutter completes
-        );
+    mm.add("(max-width: 991px)", () => {
+        const staggerItems = document.querySelectorAll('.nav-menu .nav-link, .nav-actions-mobile');
+        const menuTimeline = gsap.timeline({ paused: true });
 
-    menuToggle.addEventListener('click', () => {
-        const spans = menuToggle.querySelectorAll('span');
-        menuToggle.classList.toggle('open');
+        menuTimeline.to(navMenu, {
+            clipPath: "inset(0 0 0% 0)",
+            duration: 0.8,
+            ease: "power4.inOut"
+        })
+            .fromTo(staggerItems,
+                { y: 30, autoAlpha: 0 },
+                { y: 0, autoAlpha: 1, duration: 0.6, stagger: 0.1, ease: "power4.out" },
+                "-=0.4"
+            );
 
-        if (menuToggle.classList.contains('open')) {
-            document.body.style.overflow = 'hidden';
-            menuTimeline.play();
-            spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
-            spans[1].style.opacity = '0';
-            spans[2].style.transform = 'rotate(-45deg) translate(7px, -6px)';
-        } else {
+        const toggleMenu = () => {
+            const spans = menuToggle.querySelectorAll('span');
+            menuToggle.classList.toggle('open');
+
+            if (menuToggle.classList.contains('open')) {
+                document.body.style.overflow = 'hidden';
+                menuTimeline.play();
+                spans[0].style.transform = 'rotate(45deg) translate(5px, 5px)';
+                spans[1].style.opacity = '0';
+                spans[2].style.transform = 'rotate(-45deg) translate(7px, -6px)';
+            } else {
+                document.body.style.overflow = '';
+                menuTimeline.reverse();
+                spans.forEach(s => s.style.transform = 'none');
+                spans[1].style.opacity = '1';
+            }
+        };
+
+        menuToggle.addEventListener('click', toggleMenu);
+
+        return () => {
+            // Cleanup
+            menuToggle.removeEventListener('click', toggleMenu);
+            gsap.set([navMenu, staggerItems], { clearProps: "all" });
             document.body.style.overflow = '';
-            menuTimeline.reverse();
-            spans.forEach(s => s.style.transform = 'none');
-            spans[1].style.opacity = '1';
-        }
+        };
     });
+
 
     /* STICKY HEADER */
     let lastScrollTop = 0;
     const header = document.querySelector(".header-area");
+    const threshold = 50; // pixels to scroll before sticking
 
     window.addEventListener("scroll", () => {
         let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
         let width = window.innerWidth;
 
-        if (width > 768) {
-            if (scrollTop > lastScrollTop) {
-                header.classList.add("header-fixed");
-            } else if (scrollTop <= 48) {
-                header.classList.remove("header-fixed");
+        // Add background/shadow if scrolled past threshold
+        if (scrollTop > threshold) {
+            header.classList.add("header-fixed");
+        } else {
+            header.classList.remove("header-fixed");
+        }
+
+        // Hide/Show logic for both mobile and desktop (optional, keeping current mobile preference)
+        if (width <= 991) {
+            if (scrollTop > lastScrollTop && scrollTop > 100) {
+                header.style.top = "-92px"; // Hide header when scrolling down
+            } else {
+                header.style.top = "0"; // Show header when scrolling up
             }
         } else {
-            if (scrollTop > lastScrollTop) {
-                header.style.top = "-92px";
-                header.classList.add("header-fixed");
-            } else {
-                header.style.top = "0";
-                if (scrollTop <= 48) {
-                    header.style.top = "0px";
-                    header.classList.remove("header-fixed");
-                }
-            }
+            // Ensure desktop top is reset if resized
+            header.style.top = "0";
         }
 
         lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
     }, { passive: true });
     /* STICKY HEADER END */
+
 
     /* HERO SLIDER START */
     gsap.registerPlugin(Draggable);
@@ -261,4 +277,117 @@ document.addEventListener("DOMContentLoaded", function () {
     });
     /* TESTIMONI SWIPER END */
 
-})  
+    /* PARTNERS MARQUEE START */
+    const heroAutoPlaySlider = document.querySelector('.hero-logo-swiper');
+    if (heroAutoPlaySlider) {
+        const marqueeSpeed = heroAutoPlaySlider.dataset.speed ? parseInt(heroAutoPlaySlider.dataset.speed) : 10000;
+
+        new Swiper(".hero-logo-swiper", {
+            autoplay: {
+                delay: 1,
+                disableOnInteraction: false,
+                pauseOnMouseEnter: false,
+            },
+            slidesPerView: 9,
+            speed: marqueeSpeed,
+            spaceBetween: 24,
+            loop: true,
+            allowTouchMove: false,
+            resistanceRatio: 0,
+            // Added to keep transitions linear for marquee effect
+            easing: 'linear',
+            cssMode: false,
+            // freeMode: true,
+            freeModeMomentum: false,
+            breakpoints: {
+                0: {
+                    slidesPerView: 2,
+                },
+                576: {
+                    slidesPerView: 3,
+                },
+                768: {
+                    slidesPerView: 5,
+                },
+                1024: {
+                    slidesPerView: 7,
+                },
+                1360: {
+                    slidesPerView: 8,
+                },
+                1440: {
+                    slidesPerView: 9,
+                },
+            }
+        });
+    }
+    /* PARTNERS MARQUEE END */
+
+
+    /* START HOW IT WORK CARD ANIMATION */
+
+    mm.add("(min-width: 992px)", function () {
+        const stackWrapper = document.querySelector(".stack-wrapper");
+        const cards = gsap.utils.toArray(".wrapper-box");
+
+        if (!stackWrapper || cards.length <= 1) return;
+
+        // Dynamic gap calculation
+        const baseGap = 80; // Starting gap
+        const increment = 6; // Gap increases by 6px for each card
+
+        // Calculate cumulative gap for each card
+        const getCumulativeGap = (index) => {
+            let total = 0;
+            for (let i = 1; i <= index; i++) {
+                total += baseGap + ((i - 1) * increment);
+            }
+            return total;
+        };
+
+        // Initial setup: All cards start at full scale
+        cards.forEach((card, i) => {
+            gsap.set(card, {
+                zIndex: i + 1,
+                y: i === 0 ? 0 : "100vh",
+                scale: 1 // All start at full scale
+            });
+        });
+
+        let tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: ".how-it-work",
+                start: "top+=200 top",
+                end: () => `+=${cards.length * 400}`,
+                scrub: 1,
+                pin: true,
+                anticipatePin: 1
+            }
+        });
+
+        // Animate cards sliding up
+        cards.forEach((card, i) => {
+            if (i === 0) return;
+
+            // Animate the current card coming in with progressive gap
+            tl.to(card, {
+                y: getCumulativeGap(i),
+                scale: 1,
+                duration: 1,
+                ease: "none"
+            }, i - 1);
+
+            // Animate all previous cards (cards below) to scale down
+            for (let j = 0; j < i; j++) {
+                tl.to(cards[j], {
+                    scale: 1 - ((i - j) * 0.05), // Each card below reduces by 5%
+                    duration: 1,
+                    ease: "none"
+                }, i - 1); // Same timing as the card coming in
+            }
+        });
+    });
+
+    /* END HOW IT WORK CARD ANIMATION */
+
+})
